@@ -46,7 +46,7 @@ public class YarnEventHandler : MonoBehaviour
     void OnDialogueComplete()
     {
         Debug.Log("[YarnEvent] DialogueComplete: entire conversation ended.");
-        // 대화 전체가 끝난 뒤 처리 (UI 닫기 등)
+        // 대화 전체가 끝난 뒤 처리 
     }
 
 
@@ -89,5 +89,17 @@ public class YarnEventHandler : MonoBehaviour
     {
         Debug.Log("$[YarnCommand] CameraShake => intensity: {intensity}");
         // CameraShaker.Shake(intensity);
+    }
+
+    // 예: <<ShowLeftPortrait "Joshu">>
+    void Command_ShowLeftPortrait(string characterName)
+    {
+        Debug.Log("$[YarnCommand] ShowLeftPortrait => characterName: {characterName}");
+    }
+
+    // 예: <<HideLeftPortrait>>
+    void Command_HideLeftPortrait()
+    {
+        Debug.Log("$[YarnCommand] HideLeftPortrait");
     }
 }

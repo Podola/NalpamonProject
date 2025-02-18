@@ -1,5 +1,17 @@
 ﻿title: Chapter0
 tags:
 ---
+스토리를 시작합니다
+조슈: 스토리 시작해!
+
+<<PlayCutscene "탐정과 죠슈 등장">>
+
+<<ShowPortrait "탐정/탐정 기본" "left">>
+탐정: 탐정이 말을 한다.
+<<ShowPortrait "죠슈/죠슈 기본" "right">>
+죠슈: 죠슈도 말을 한다.
+
+<<HidePortrait "both">>
+<<ShowIllustration "아자토스 강림">>
 
 ===

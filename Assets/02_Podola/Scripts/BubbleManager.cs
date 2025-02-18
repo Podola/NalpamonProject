@@ -11,13 +11,18 @@ public class BubbleManager : MonoBehaviour
     void Start()
     {
         currentLineIndex = 0;
-        bubbleActive = true;
-        UpdateCurrentBubble();    
+        bubbleActive = false;
+        // UpdateCurrentBubble();    
     }
 
     void Update()
     {
-        if(bubbleActive && Input.GetKeyDown(KeyCode.Space))
+        if(bubbleSO.lines.Length == 0)
+        {
+            return;
+        }
+
+        if(bubbleActive && Input.GetKeyDown(KeyCode.LeftShift))
         {
             NextBubbleLine();
         }

@@ -1,16 +1,21 @@
+using MoreMountains.Feedbacks;
+using TMPro;
 using UnityEngine;
 
 public class BubbleController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public string speaker;
+    public TextMeshPro textMeshPro;
+    public MMF_Player mmfPlayer;
+
+    public void UpdateBubble(BubbleLine newLine)
     {
-        
+        textMeshPro.text = newLine.bubbleText;
+        mmfPlayer.PlayFeedbacks();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HideBubble()
     {
-        
+        gameObject.SetActive(false);
     }
 }

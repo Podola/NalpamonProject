@@ -16,7 +16,7 @@ public class YarnEventHandler : MonoBehaviour
 
     void Awake()
     {
-         eventHandler = OnEventEnded;
+        eventHandler = OnEventEnded;
         dialogueRunner.AddCommandHandler<string>("PlayCutscene", Command_PlayCutscene);
         dialogueRunner.AddCommandHandler<string>("ShowIllustration", Command_ShowIllustration);
         dialogueRunner.AddCommandHandler<string, string>("ShowPortrait", Command_ShowPortrait);

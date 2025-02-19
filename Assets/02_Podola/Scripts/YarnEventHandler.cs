@@ -4,10 +4,12 @@ using Yarn.Unity;
 public class YarnEventHandler : MonoBehaviour
 {
     private DialogueRunner dr;
+    private PortraitLoader pl;
 
     private void Awake()
     {
         dr = FindFirstObjectByType<DialogueRunner>();
+        pl = FindFirstObjectByType<PortraitLoader>();
 
         // 이벤트 등록
         dr.onNodeStart.AddListener(OnNodeStart);
@@ -20,6 +22,8 @@ public class YarnEventHandler : MonoBehaviour
         dr.AddCommandHandler("AdvanceDay", Command_AdvanceDay);
         dr.AddCommandHandler<string>("PlaySFX", Command_PlaySFX);
         dr.AddCommandHandler<float>("CameraShake", Command_CameraShake);
+        dr.AddCommandHandler<string, string>("LoadLeftPortrait", Command_LoadLeftPortrait);
+        dr.AddCommandHandler("UnLoadLeftPortrait", Command_UnLoadLeftPortrait);
     }
 
     // -----------------------
@@ -46,7 +50,7 @@ public class YarnEventHandler : MonoBehaviour
     void OnDialogueComplete()
     {
         Debug.Log("[YarnEvent] DialogueComplete: entire conversation ended.");
-        // 대화 전체가 끝난 뒤 처리 (UI 닫기 등)
+        // 대화 전체가 끝난 뒤 처리 
     }
 
 
@@ -87,7 +91,20 @@ public class YarnEventHandler : MonoBehaviour
     // 예: <<CameraShake 1.2>>
     void Command_CameraShake(float intensity)
     {
-        Debug.Log("$[YarnCommand] CameraShake => intensity: {intensity}");
+        Debug.Log($"[YarnCommand] CameraShake => intensity: {intensity}");
         // CameraShaker.Shake(intensity);
+    }
+
+    // 예: <<LoadLeftPortrait "Joshu" "1">>
+    void Command_LoadLeftPortrait(string characterName, string expression)
+    {
+        Debug.Log($"[YarnCommand] LoadLeftPortrait => characterName: {characterName}, expression: {expression}");
+        pl.LoadLeftPortrait(characterName, expression);
+    }
+
+    // 예: <<UnLoadLeftPortrait>>
+    void Command_UnLoadLeftPortrait()
+    {
+        Debug.Log($"[YarnCommand] UnLoadLeftPortrait");
     }
 }

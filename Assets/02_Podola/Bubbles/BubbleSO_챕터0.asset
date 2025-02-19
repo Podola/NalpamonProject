@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd836d2626f9e44985c94ab7223b6f7, type: 3}
   m_Name: "BubbleSO_\uCC55\uD1300"
   m_EditorClassIdentifier: 
-  lines: []
+  lines:
+  - speaker: "\uD0D0\uC815"
+    bubbleText: "\uC774\uC81C... \uC774\uC81C \uACE7\uC774\uB2E4."
+  - speaker: "\uC8E0\uC288"
+    bubbleText: "\uC774 \uBE4C\uC5B4\uBA39\uC744 \uC790\uC2DD."
+  - speaker: "\uC8E0\uC288"
+    bubbleText: "\uAC81\uB3C4 \uC5C6\uC774 \uC798\uB3C4 \uC228\uC5B4\uC788\uC5C8\uAD70!"

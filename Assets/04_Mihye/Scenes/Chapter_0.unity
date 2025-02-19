@@ -1423,7 +1423,7 @@ Transform:
   m_GameObject: {fileID: 473566371}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.649914, y: -2.3144245, z: -9.982732}
+  m_LocalPosition: {x: -10.079914, y: -2.3144245, z: -9.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2017,7 +2017,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 4.65
+  orthographic size: 3.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6139,6 +6139,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2064854997}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2064854998}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
 --- !u!4 &1724612029 stripped
 Transform:
@@ -6632,6 +6635,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &2064854998
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064854996}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
 --- !u!1 &2144276486
 GameObject:
   m_ObjectHideFlags: 0

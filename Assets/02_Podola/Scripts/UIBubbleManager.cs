@@ -36,9 +36,6 @@ public class UIBubbleManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 대화를 시작 (외부에서 호출)
-    /// </summary>
     public void StartBubble(int startIndex = 0)
     {
         if (bubbleSO == null || bubbleSO.lines.Length == 0)
@@ -53,9 +50,6 @@ public class UIBubbleManager : MonoBehaviour
         UpdateCurrentBubble();
     }
 
-    /// <summary>
-    /// 현재 인덱스 대사를 표시
-    /// </summary>
     private void UpdateCurrentBubble()
     {
         if (currentLineIndex >= bubbleSO.lines.Length)
@@ -105,9 +99,6 @@ public class UIBubbleManager : MonoBehaviour
         previousSpeaker = currentSpeaker;
     }
 
-    /// <summary>
-    /// 말풍선을 교차 페이드: 이전 말풍선 페이드아웃 + 새 말풍선 페이드인
-    /// </summary>
     private System.Collections.IEnumerator CrossFadeBubbles(UIBubbleController oldBubble, UIBubbleController newBubble, BubbleLine newLine)
     {
         // 우선 새 화자 말풍선 UpdateBubble(continuous=false => 페이드인)
@@ -124,9 +115,6 @@ public class UIBubbleManager : MonoBehaviour
         oldBubble.HideImmediate();
     }
 
-    /// <summary>
-    /// 다음 대사로 넘어가기
-    /// </summary>
     public void NextBubbleLine()
     {
         currentLineIndex++;
@@ -140,9 +128,6 @@ public class UIBubbleManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 모든 대사를 마치거나 강제로 종료할 때
-    /// </summary>
     private void EndBubble()
     {
         bubbleActive = false;

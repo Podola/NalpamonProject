@@ -12,7 +12,6 @@ public class TimelineManager : MonoBehaviour
     {
         if (index < 0 || index >= directorList.Count)
         {
-            Debug.LogWarning($"잘못된 인덱스({index})입니다. 리스트 범위를 확인하세요.");
             return;
         }
 
@@ -28,7 +27,6 @@ public class TimelineManager : MonoBehaviour
         PlayableDirector director = directorList[index];
         if (director == null)
         {
-            Debug.LogWarning($"PlayableDirector가 비어있습니다. index: {index}");
             return;
         }
 

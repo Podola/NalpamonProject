@@ -59,9 +59,6 @@ public class UIBubbleController : MonoBehaviour
         bubbleHideRoutine = StartCoroutine(AutoHideBubble(showDuration));
     }
 
-    /// <summary>
-    /// 강제로 즉시 숨긴다(알파=0, 오브젝트 비활성).
-    /// </summary>
     public void HideImmediate()
     {
         currentFadeTween?.Kill();
@@ -71,9 +68,6 @@ public class UIBubbleController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// 페이드 아웃(알파=0) 후 오브젝트는 그대로 남긴다(필요하면 매니저에서 비활성).
-    /// </summary>
     public void FadeOutBubble()
     {
         currentFadeTween?.Kill();
@@ -84,21 +78,14 @@ public class UIBubbleController : MonoBehaviour
         bgImage.DOFade(0f, fadeOutDuration).SetUpdate(true);
     }
 
-    /// <summary>
-    /// 페이드 인(알파=1).
-    /// </summary>
     public void FadeInBubble()
     {
-        // 처음엔 알파=0
         SetAlphaInstant(0f);
 
         textMeshPro.DOFade(1f, fadeInDuration).SetUpdate(true);
         bgImage.DOFade(1f, fadeInDuration).SetUpdate(true);
     }
 
-    /// <summary>
-    /// 알파값을 즉시 변경
-    /// </summary>
     private void SetAlphaInstant(float alpha)
     {
         var tc = textMeshPro.color;
@@ -108,9 +95,6 @@ public class UIBubbleController : MonoBehaviour
         bgImage.color = new Color(bgc.r, bgc.g, bgc.b, alpha);
     }
 
-    /// <summary>
-    /// showDuration 이후 자동 페이드 아웃
-    /// </summary>
     private IEnumerator AutoHideBubble(float duration)
     {
         yield return new WaitForSeconds(duration);

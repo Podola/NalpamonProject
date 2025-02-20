@@ -1,58 +1,46 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Playables;
 
 public class TimelineManager : MonoBehaviour
 {
-    public PlayableDirector director;
-    public List<Cutscene> cutsceneList;
+    public List<PlayableDirector> directorList;
+    public event Action<int> OnCutsceneFinished;
 
-    [System.Serializable]
-    public class Cutscene
+    public void PlayCutscene(int index)
     {
-        public string cutsceneName;
-        public float startTime;
-        public float endTime;
-    }
-
-    [Header("Events")]
-    public UnityEvent onCutsceneEnd;
-
-    void Awake()
-    {
-        director.playOnAwake = false;
-    }
-
-    public void PlayCutscene(string cutsceneName)
-    {
-        Cutscene cutscene = null;
-        foreach(var cs in cutsceneList)
+        if (index < 0 || index >= directorList.Count)
         {
-            if(cs.cutsceneName == cutsceneName)
+            Debug.LogWarning($"잘못된 인덱스({index})입니다. 리스트 범위를 확인하세요.");
+            return;
+        }
+
+        // 이미 재생 중인 타임라인 정지
+        foreach (var pd in directorList)
+        {
+            if (pd != null && pd.state == PlayState.Playing)
             {
-                cutscene = cs;
-                break;
+                pd.Stop();
             }
         }
 
-        StartCutscene(cutscene);
-    }
+        PlayableDirector director = directorList[index];
+        if (director == null)
+        {
+            Debug.LogWarning($"PlayableDirector가 비어있습니다. index: {index}");
+            return;
+        }
 
-    private void StartCutscene(Cutscene cutscene)
-    {
-        director.time = cutscene.startTime;
+        director.stopped -= OnDirectorStopped;
+        director.stopped += OnDirectorStopped;
         director.Play();
-
-        // 종료 시간까지의 시간을 계산해 자동 정지 예약
-        float duration = cutscene.endTime - cutscene.startTime;
-        Invoke("StopCutscene", (float)duration);
     }
 
-    // 컷씬이 종료되었을 때 호출되는 콜백
-    private void StopCutscene()
+    private void OnDirectorStopped(PlayableDirector aDirector)
     {
-        director.Stop();
-        onCutsceneEnd.Invoke();
+        int index = directorList.IndexOf(aDirector);
+        aDirector.stopped -= OnDirectorStopped;
+        OnCutsceneFinished?.Invoke(index);
     }
 }

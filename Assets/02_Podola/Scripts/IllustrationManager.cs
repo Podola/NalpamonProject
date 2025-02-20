@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class IllustrationManager : MonoBehaviour
 {
-    public RawImage illustrationImage;
+    public Image illustrationImage;
     public float fadeDuration = 0.5f;
-    public float displayDuration = 5f;
 
     [Header("Events")]
     public UnityEvent onIllustrationEnd;
@@ -24,10 +23,9 @@ public class IllustrationManager : MonoBehaviour
             illustrationImage.gameObject.SetActive(true);
         }
         Sprite sprite = Resources.Load<Sprite>("일러스트/" + illustrationName);
-        illustrationImage.texture = sprite.texture;
+        illustrationImage.sprite = sprite;
 
         FadeIn();
-        DOVirtual.DelayedCall(displayDuration, StopIllustration);
     }
     public void FadeIn()
     {
@@ -40,11 +38,11 @@ public class IllustrationManager : MonoBehaviour
 
     public void FadeOut()
     {
-        illustrationImage.DOFade(0f, fadeDuration);
-        illustrationImage.gameObject.SetActive(false);
+        illustrationImage.DOFade(0f, fadeDuration)
+            .OnComplete(() => illustrationImage.gameObject.SetActive(false));
     }
 
-    private void StopIllustration()
+    public void StopIllustration()
     {
         FadeOut();
         onIllustrationEnd.Invoke();

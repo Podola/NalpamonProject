@@ -1,100 +1,142 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using Yarn.Unity;
 
 public class YarnEventHandler : MonoBehaviour
 {
-    public DialogueRunner dialogueRunner;
+    // 외부 매니저들
+    public DialogueManager dialogueManager;
     public TimelineManager timelineManager;
     public IllustrationManager illustrationManager;
-    public PortraitManager portraitManager;
+    public StandingManager standingManager;
+    public EffectManager effectManager;
 
-    private bool isEventFinished = false;
-    private UnityAction eventHandler;
+    // 코루틴이 끝날 때까지 대기하는 플래그
+    private bool isCutsceneFinished = false;
 
     void Awake()
     {
-         eventHandler = OnEventEnded;
-        dialogueRunner.AddCommandHandler<string>("PlayCutscene", Command_PlayCutscene);
-        dialogueRunner.AddCommandHandler<string>("ShowIllustration", Command_ShowIllustration);
-        dialogueRunner.AddCommandHandler<string, string>("ShowPortrait", Command_ShowPortrait);
-        dialogueRunner.AddCommandHandler<string>("HidePortrait", Command_HidePortrait);
+        var dialogueRunner = dialogueManager.dialogueRunner;
 
+        // PlayCutscene 코루틴 커맨드 등록 (int cutsceneIndex, string nextNode)
+        dialogueRunner.AddCommandHandler<int, string>("PlayCutscene", Command_PlayCutscene);
+
+        dialogueRunner.AddCommandHandler("HideIllustration", Command_HideIllustration);
+        dialogueRunner.AddCommandHandler<string, string>("ShowStanding", Command_ShowStanding);
+        dialogueRunner.AddCommandHandler<string>("Focus", Command_Focus);
+        dialogueRunner.AddCommandHandler<string>("HideStanding", Command_HideStanding);
+        dialogueRunner.AddCommandHandler("EnableBlur", Command_EnableBlur);
+        dialogueRunner.AddCommandHandler("DisableBlur", Command_DisableBlur);
+        dialogueRunner.AddCommandHandler("ShakeCamera", Command_ShakeCamera);
+        dialogueRunner.AddCommandHandler("FadeIn", Command_FadeIn);
+        dialogueRunner.AddCommandHandler("FadeOut", Command_FadeOut);
     }
 
-    public IEnumerator Command_PlayCutscene(string cutsceneName)
+    public IEnumerator Command_PlayCutscene(int cutsceneIndex, string nextNode)
     {
-        isEventFinished = false;
-        
-        // 종료 이벤트에 핸들러를 구독
-        timelineManager.onCutsceneEnd.AddListener(eventHandler);
+        // 타임라인이 끝날 때까지 대기하기 위한 플래그 초기화
+        isCutsceneFinished = false;
+
+        // 타임라인 종료 이벤트 구독
+        timelineManager.OnCutsceneFinished += OnCutsceneEnded;
 
         // 컷씬 재생
-        timelineManager.PlayCutscene(cutsceneName);
+        timelineManager.PlayCutscene(cutsceneIndex);
 
-        // 컷씬이 끝날 때까지 대기
-        yield return new WaitUntil(() => isEventFinished);
+        // "isCutsceneFinished == true" 가 될 때까지 대기
+        yield return new WaitUntil(() => isCutsceneFinished);
 
         // 이벤트 구독 해제
-        timelineManager.onCutsceneEnd.RemoveListener(eventHandler);
+        timelineManager.OnCutsceneFinished -= OnCutsceneEnded;
 
-        // Yarn 다음줄 실행
+        // 만약 컷씬 끝난 뒤 특정 Yarn 노드로 점프하고 싶다면:
+        if (!string.IsNullOrEmpty(nextNode))
+        {
+            dialogueManager.dialogueRunner.Stop();
+            dialogueManager.dialogueRunner.StartDialogue(nextNode);
+        }
+
+        // 커맨드 종료 -> Yarn은 '다음 줄'로 진행
         yield break;
     }
 
-    public IEnumerator Command_ShowIllustration(string illustrationName)
+    // 타임라인 종료 시점에 호출될 콜백
+    private void OnCutsceneEnded(int index)
     {
-        isEventFinished = false;
-        illustrationManager.onIllustrationEnd.AddListener(eventHandler);
-        illustrationManager.ChangeIllustrationImage(illustrationName);
-        yield return new WaitUntil(() => isEventFinished);
-        illustrationManager.onIllustrationEnd.RemoveListener(eventHandler);
-        yield break;
-
+        // 코루틴을 깨우기 위해
+        isCutsceneFinished = true;
     }
 
-  public void Command_ShowPortrait(string portraitName, string direction)
+    public void Command_HideIllustration()
+    {
+        illustrationManager.StopIllustration();
+    }
+
+    public void Command_ShowStanding(string standingName, string direction)
     {
         if(direction == "left")
         {
-            portraitManager.ChangeLeftPortraitImage(portraitName);
+            standingManager.ChangeLeftStandingImage(standingName);
         }
         else if(direction == "right")
         {
-            portraitManager.ChangeRightPortraitImage(portraitName);
+            standingManager.ChangeRightStandingImage(standingName);
         }
         else
         {
-            Debug.LogWarning("Wrong portrait direction: " + direction);
+            Debug.LogWarning("Wrong Standing direction: " + direction);
         }
+        standingManager.FocusSpeaker(direction);
     }
 
-    public void Command_HidePortrait(string direction)
+    public void Command_Focus(string direction)
+    {
+        standingManager.FocusSpeaker(direction);
+    }
+
+    public void Command_HideStanding(string direction)
     {
         if (direction == "both")
         {
-            portraitManager.HideLeftPortraitImage();
-            portraitManager.HideRightPortraitImage();
+            standingManager.HideLeftStandingImage();
+            standingManager.HideRightStandingImage();
         }
         else if (direction == "left")
         {
-            portraitManager.HideLeftPortraitImage();
+            standingManager.HideLeftStandingImage();
         }
         else if (direction == "right")
         {
-            portraitManager.HideRightPortraitImage();
+            standingManager.HideRightStandingImage();
         }
         else
         {
-            Debug.LogWarning("Wrong portrait direction: " + direction);
+            Debug.LogWarning("Wrong Standing direction: " + direction);
         }
     }
 
-    // 이벤트 종료 시 호출되는 핸들러
-    private void OnEventEnded()
+    public void Command_EnableBlur()
     {
-        isEventFinished = true;
+        dialogueManager.blurController.EnableBlur();
+    }
+
+    public void Command_DisableBlur()
+    {
+        dialogueManager.blurController.DisableBlur();
+    }
+
+    public void Command_ShakeCamera()
+    {
+        effectManager.ShakeCamera();
+    }
+
+    public void Command_FadeIn()
+    {
+        effectManager.FadeIn();
+    }
+
+    public void Command_FadeOut()
+    {
+        effectManager.FadeOut();
     }
 }

@@ -576,8 +576,8 @@ MonoBehaviour:
   m_text: "\uC774 \uBE4C\uC5B4\uBA39\uC744 \uC790\uC2DD. \n\uAC81\uB3C4 \uC5C6\uC774
     \n\uC798\uB3C4 \uC228\uC5B4\uC788\uC5C8\uAD70!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: efd736a38c6acef429d93099f4805998, type: 2}
+  m_sharedMaterial: {fileID: 2134375875007963290, guid: efd736a38c6acef429d93099f4805998, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -710,11 +710,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uB807\uAC8C \uB41C \uAC70 \uC8E0\uC288\uB97C \n\uB9E4\uAC1C\uCCB4\uB85C
-    \uC368\uBA39\uC5B4\uC57C\uACA0\uAC70\uB4E0\uC694."
+  m_text: "\uC774\uB807\uAC8C \uB41C \uAC70 \n\uC8E0\uC288\uB97C \uB9E4\uAC1C\uCCB4\uB85C\n\uC368\uBA39\uC5B4\uC57C\uACA0\uAC70\uB4E0\uC694."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: efd736a38c6acef429d93099f4805998, type: 2}
+  m_sharedMaterial: {fileID: 2134375875007963290, guid: efd736a38c6acef429d93099f4805998, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -738,8 +737,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 21
+  m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1423,7 +1422,7 @@ Transform:
   m_GameObject: {fileID: 473566371}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.079914, y: -2.3144245, z: -9.87}
+  m_LocalPosition: {x: -3.649914, y: -2.3144245, z: -9.982732}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1643,7 +1642,7 @@ RectTransform:
   m_GameObject: {fileID: 521734352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5126, y: 1.5126, z: 1.5126}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 355234620}
@@ -1651,7 +1650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 751, y: 77}
+  m_AnchoredPosition: {x: 720.6, y: 102.02}
   m_SizeDelta: {x: 285, y: 142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &579419028
@@ -2017,7 +2016,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 3.5
+  orthographic size: 3.83
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2042,7 +2041,7 @@ Transform:
   m_GameObject: {fileID: 700407480}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.649907, y: 1.5213668, z: -9.982732}
+  m_LocalPosition: {x: -1.3473816, y: 0.07637954, z: -97.07812}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2654,7 +2653,7 @@ RectTransform:
   m_GameObject: {fileID: 933557739}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3044112, y: 1.3044112, z: 1.3044112}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 316024016}
@@ -2662,7 +2661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -763, y: 0}
+  m_AnchoredPosition: {x: -737, y: 0}
   m_SizeDelta: {x: 314, y: 111}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &982963860
@@ -2831,8 +2830,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uBBF8\uBB3C\uC744 \uB9E4\uAC1C\uB85C \uD558\uC5EC \n\uC800\uB97C \uAD6C\uD574\uC8FC\uC18C\uC11C\u2026!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: efd736a38c6acef429d93099f4805998, type: 2}
+  m_sharedMaterial: {fileID: 2134375875007963290, guid: efd736a38c6acef429d93099f4805998, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3420,7 +3419,7 @@ RectTransform:
   m_GameObject: {fileID: 1126692892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2652, y: 1.2652, z: 1.2652}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1852910130}
@@ -3733,8 +3732,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB208 \uBA3C \uC790\uC774\uC790 \n\uBC31\uCE58\uC758 \uC2E0\uC774\uC2DC\uC5EC! "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: efd736a38c6acef429d93099f4805998, type: 2}
+  m_sharedMaterial: {fileID: 2134375875007963290, guid: efd736a38c6acef429d93099f4805998, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6264,8 +6263,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC774\uC81C... \uC774\uC81C \uACE7\uC774\uB2E4."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: efd736a38c6acef429d93099f4805998, type: 2}
+  m_sharedMaterial: {fileID: 2134375875007963290, guid: efd736a38c6acef429d93099f4805998, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6500,8 +6499,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u2026\uB9CC\uBB3C\uC758 \uC655, "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: efd736a38c6acef429d93099f4805998, type: 2}
+  m_sharedMaterial: {fileID: 2134375875007963290, guid: efd736a38c6acef429d93099f4805998, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

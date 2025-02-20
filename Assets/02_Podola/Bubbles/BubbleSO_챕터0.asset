@@ -19,3 +19,12 @@ MonoBehaviour:
     bubbleText: "\uC774 \uBE4C\uC5B4\uBA39\uC744 \uC790\uC2DD."
   - speaker: "\uC8E0\uC288"
     bubbleText: "\uAC81\uB3C4 \uC5C6\uC774 \uC798\uB3C4 \uC228\uC5B4\uC788\uC5C8\uAD70!"
+  - speaker: "\uD0D0\uC815"
+    bubbleText: "\uC5B4, \uC8E0\uC288?"
+  - speaker: "\uD0D0\uC815"
+    bubbleText: "\u2026\uB9CC\uBB3C\uC758 \uC655,"
+  - speaker: "\uD0D0\uC815"
+    bubbleText: "\uB208 \uBA3C \uC790\uC774\uC790 \uBC31\uCE58\uC758 \uC2E0\uC774\uC2DC\uC5EC!"
+  - speaker: "\uD0D0\uC815"
+    bubbleText: "\uBBF8\uBB3C\uC744 \uB9E4\uAC1C\uB85C \uD558\uC5EC \uC800\uB97C
+      \uAD6C\uD558\uC18C\uC11C!"

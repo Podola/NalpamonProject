@@ -17,11 +17,11 @@ public class BubbleController : MonoBehaviour
     public MMF_Player mmfPlayer;
 
     [Header("Fade 설정")]
-    public float fadeInDuration = 1f;
-    public float fadeOutDuration = 1f;
+    public float fadeInDuration = 0.5f;
+    public float fadeOutDuration = 0.5f;
 
     [Header("말풍선 유지 시간")]
-    public float showDuration = 2f;
+    public float showDuration = 1.3f;
 
     // 진행중인 tween과 FadeOut 코루틴을 추적
     private Tween currentFadeTween;

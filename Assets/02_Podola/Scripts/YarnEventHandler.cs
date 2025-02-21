@@ -1,110 +1,142 @@
+using System.Collections;
 using UnityEngine;
 using Yarn.Unity;
 
 public class YarnEventHandler : MonoBehaviour
 {
-    private DialogueRunner dr;
-    private PortraitLoader pl;
+    // ì™¸ë¶€ ë§¤ë‹ˆì €ë“¤
+    public DialogueManager dialogueManager;
+    public TimelineManager timelineManager;
+    public IllustrationManager illustrationManager;
+    public StandingManager standingManager;
+    public EffectManager effectManager;
 
-    private void Awake()
+    // ì½”ë£¨í‹´ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°í•˜ëŠ” í”Œë˜ê·¸
+    private bool isCutsceneFinished = false;
+
+    void Awake()
     {
-        dr = FindFirstObjectByType<DialogueRunner>();
-        pl = FindFirstObjectByType<PortraitLoader>();
+        var dialogueRunner = dialogueManager.dialogueRunner;
 
-        // ÀÌº¥Æ® µî·Ï
-        dr.onNodeStart.AddListener(OnNodeStart);
-        dr.onNodeComplete.AddListener(OnNodeComplete);
-        dr.onDialogueComplete.AddListener(OnDialogueComplete);
+        // PlayCutscene ì½”ë£¨í‹´ ì»¤ë§¨ë“œ ë“±ë¡ (int cutsceneIndex, string nextNode)
+        dialogueRunner.AddCommandHandler<int, string>("PlayCutscene", Command_PlayCutscene);
 
-        // ¸í·É(Command) µî·Ï
-        dr.AddCommandHandler<string>("LoadScene", Command_LoadScene);
-        dr.AddCommandHandler("BeginFreeRoam", Command_BeginFreeRoam);
-        dr.AddCommandHandler("AdvanceDay", Command_AdvanceDay);
-        dr.AddCommandHandler<string>("PlaySFX", Command_PlaySFX);
-        dr.AddCommandHandler<float>("CameraShake", Command_CameraShake);
-        dr.AddCommandHandler<string, string>("LoadLeftPortrait", Command_LoadLeftPortrait);
-        dr.AddCommandHandler("UnLoadLeftPortrait", Command_UnLoadLeftPortrait);
+        dialogueRunner.AddCommandHandler("HideIllustration", Command_HideIllustration);
+        dialogueRunner.AddCommandHandler<string, string>("ShowStanding", Command_ShowStanding);
+        dialogueRunner.AddCommandHandler<string>("Focus", Command_Focus);
+        dialogueRunner.AddCommandHandler<string>("HideStanding", Command_HideStanding);
+        dialogueRunner.AddCommandHandler("EnableBlur", Command_EnableBlur);
+        dialogueRunner.AddCommandHandler("DisableBlur", Command_DisableBlur);
+        dialogueRunner.AddCommandHandler("ShakeCamera", Command_ShakeCamera);
+        dialogueRunner.AddCommandHandler("FadeIn", Command_FadeIn);
+        dialogueRunner.AddCommandHandler("FadeOut", Command_FadeOut);
     }
 
-    // -----------------------
-    // 1) DialogueRunner Events
-    // -----------------------
-    void OnNodeStart(string nodeName)
+    public IEnumerator Command_PlayCutscene(int cutsceneIndex, string nextNode)
     {
-        Debug.Log($"[YarnEvent] NodeStart: {nodeName}");
+        // íƒ€ì„ë¼ì¸ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°í•˜ê¸° ìœ„í•œ í”Œë˜ê·¸ ì´ˆê¸°í™”
+        isCutsceneFinished = false;
 
-        // ¿¹: Æ¯Á¤ ³ëµå ÁøÀÔ ½Ã Ä«¸Ş¶ó ÀüÈ¯, Æ¯Á¤ UI ¿­±â µî
-        if (nodeName == "Mansion_1F_Explorer")
+        // íƒ€ì„ë¼ì¸ ì¢…ë£Œ ì´ë²¤íŠ¸ êµ¬ë…
+        timelineManager.OnCutsceneFinished += OnCutsceneEnded;
+
+        // ì»·ì”¬ ì¬ìƒ
+        timelineManager.PlayCutscene(cutsceneIndex);
+
+        // "isCutsceneFinished == true" ê°€ ë  ë•Œê¹Œì§€ ëŒ€ê¸°
+        yield return new WaitUntil(() => isCutsceneFinished);
+
+        // ì´ë²¤íŠ¸ êµ¬ë… í•´ì œ
+        timelineManager.OnCutsceneFinished -= OnCutsceneEnded;
+
+        // ë§Œì•½ ì»·ì”¬ ëë‚œ ë’¤ íŠ¹ì • Yarn ë…¸ë“œë¡œ ì í”„í•˜ê³  ì‹¶ë‹¤ë©´:
+        if (!string.IsNullOrEmpty(nextNode))
         {
-            Debug.Log("ÆÄ½ºÅ¸ ÀúÅÃ¿¡ ÀÔÀå. ÀÚÀ¯ Á¶»ç ¸ğµå ½ÃÀÛ");
-            // FreeRoam Mode
+            dialogueManager.dialogueRunner.Stop();
+            dialogueManager.dialogueRunner.StartDialogue(nextNode);
+        }
 
+        // ì»¤ë§¨ë“œ ì¢…ë£Œ -> Yarnì€ 'ë‹¤ìŒ ì¤„'ë¡œ ì§„í–‰
+        yield break;
+    }
+
+    // íƒ€ì„ë¼ì¸ ì¢…ë£Œ ì‹œì ì— í˜¸ì¶œë  ì½œë°±
+    private void OnCutsceneEnded(int index)
+    {
+        // ì½”ë£¨í‹´ì„ ê¹¨ìš°ê¸° ìœ„í•´
+        isCutsceneFinished = true;
+    }
+
+    public void Command_HideIllustration()
+    {
+        illustrationManager.StopIllustration();
+    }
+
+    public void Command_ShowStanding(string standingName, string direction)
+    {
+        if(direction == "left")
+        {
+            standingManager.ChangeLeftStandingImage(standingName);
+        }
+        else if(direction == "right")
+        {
+            standingManager.ChangeRightStandingImage(standingName);
+        }
+        else
+        {
+            Debug.LogWarning("Wrong Standing direction: " + direction);
+        }
+        standingManager.FocusSpeaker(direction);
+    }
+
+    public void Command_Focus(string direction)
+    {
+        standingManager.FocusSpeaker(direction);
+    }
+
+    public void Command_HideStanding(string direction)
+    {
+        if (direction == "both")
+        {
+            standingManager.HideLeftStandingImage();
+            standingManager.HideRightStandingImage();
+        }
+        else if (direction == "left")
+        {
+            standingManager.HideLeftStandingImage();
+        }
+        else if (direction == "right")
+        {
+            standingManager.HideRightStandingImage();
+        }
+        else
+        {
+            Debug.LogWarning("Wrong Standing direction: " + direction);
         }
     }
-    void OnNodeComplete(string nodeName)
+
+    public void Command_EnableBlur()
     {
-        Debug.Log($"[YarnEvent] NodeComplete: {nodeName}");
-        // ³ëµå Á¾·á ½ÃÁ¡¿¡ Ã³¸®ÇÒ ·ÎÁ÷
+        dialogueManager.blurController.EnableBlur();
     }
 
-    void OnDialogueComplete()
+    public void Command_DisableBlur()
     {
-        Debug.Log("[YarnEvent] DialogueComplete: entire conversation ended.");
-        // ´ëÈ­ ÀüÃ¼°¡ ³¡³­ µÚ Ã³¸® 
+        dialogueManager.blurController.DisableBlur();
     }
 
-
-    // -----------------------
-    // 2) Yarn Command Handlers
-    // -----------------------
-
-    // ¿¹: <<LoadScene Mansion>>
-    void Command_LoadScene(string sceneName)
+    public void Command_ShakeCamera()
     {
-        Debug.Log($"[YarnCommand] LoadScene => {sceneName}");
-        GameManager.Instance.LoadScene(sceneName);
+        effectManager.ShakeCamera();
     }
 
-    // ¿¹: <<BeginFreeRoam>>
-    void Command_BeginFreeRoam()
+    public void Command_FadeIn()
     {
-        // ÀÚÀ¯ Á¶»ç ¸ğµå µ¹ÀÔ
-        Debug.Log($"[YarnCommand] BeginFreeRoam");
-
-
+        effectManager.FadeIn();
     }
 
-    // ¿¹: <<AdvanceDay>>
-    void Command_AdvanceDay()
+    public void Command_FadeOut()
     {
-        Debug.Log($"[YarnCommand] AdvanceDay");
-        GameManager.Instance.AdvanceDay();
-    }
-
-    // ¿¹: <<PlaySFX "DoorOpen">>
-    void Command_PlaySFX(string sfxName)
-    {
-        Debug.Log($"[YarnCommand] PlaySFX => {sfxName}");
-        // AudioManager.Instance.PlaySFX(sfxName);
-    }
-
-    // ¿¹: <<CameraShake 1.2>>
-    void Command_CameraShake(float intensity)
-    {
-        Debug.Log($"[YarnCommand] CameraShake => intensity: {intensity}");
-        // CameraShaker.Shake(intensity);
-    }
-
-    // ¿¹: <<LoadLeftPortrait "Joshu" "1">>
-    void Command_LoadLeftPortrait(string characterName, string expression)
-    {
-        Debug.Log($"[YarnCommand] LoadLeftPortrait => characterName: {characterName}, expression: {expression}");
-        pl.LoadLeftPortrait(characterName, expression);
-    }
-
-    // ¿¹: <<UnLoadLeftPortrait>>
-    void Command_UnLoadLeftPortrait()
-    {
-        Debug.Log($"[YarnCommand] UnLoadLeftPortrait");
+        effectManager.FadeOut();
     }
 }

@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 8205641244768530385}
   - component: {fileID: 8773755451109400217}
   m_Layer: 0
-  m_Name: Bubble
+  m_Name: "\uB9D0\uD48D\uC120"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -642,4 +642,4 @@ MonoBehaviour:
   mmfPlayer: {fileID: 8205641244768530385}
   fadeInDuration: 0.5
   fadeOutDuration: 0.5
-  showDuration: 3
+  showDuration: 2

@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: speaker
       value: "\uC8E0\uC288"
       objectReference: {fileID: 0}
+    - target: {fileID: 8773755451109400217, guid: 489d0e2701fd6e541b616d1255340518, type: 3}
+      propertyPath: showDuration
+      value: 1.3
+      objectReference: {fileID: 0}
     - target: {fileID: 9071111226236314115, guid: 489d0e2701fd6e541b616d1255340518, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -194,6 +198,22 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2668935254091971554, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 683151725906686722, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
+      propertyPath: m_SortingOrder
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162520294485293189, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
+      propertyPath: m_SortingOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089798823385027992, guid: 23365be30d8d8e14eb4733eb001c5047, type: 3}
+      propertyPath: m_SortingOrder
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

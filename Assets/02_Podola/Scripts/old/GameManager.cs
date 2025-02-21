@@ -1,76 +1,81 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 using Yarn.Unity;
+
+public enum PlaylistItemType { Timeline, Dialogue }
+
+[System.Serializable]
+public class PlaylistItem {
+    [Tooltip("이 컷신을 식별할 고유 ID입니다. Yarn 커맨드 호출 시 이 ID를 사용합니다.")]
+    public string id;
+
+    public PlaylistItemType itemType;
+
+    [Tooltip("타임라인 컷신일 경우 할당할 PlayableDirector 컴포넌트입니다.")]
+    public PlayableDirector timeline;
+
+    [Tooltip("대화 컷신일 경우 실행할 Yarn 노드 이름입니다.")]
+    public string dialogueNode;
+
+    [HideInInspector]
+    public bool selected; // 인스펙터에서 선택 여부를 관리
+}
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    [Header("타임라인 및 대화 컷신")]
+    public List<PlaylistItem> playlist = new List<PlaylistItem>();
 
-    public int currentChapter = 1;
-    public int currentDay = 1;
+    [Header("Debug Logs (런타임)")]
+    public List<string> debugLogs = new List<string>();
+    private DialogueRunner dialogueRunner;
 
-    private DialogueRunner dr;
-
-    private void Awake()
+    void Awake()
     {
-        Instance = this;
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
     }
 
-    private void Start()
+    // 인스펙터에서 선택된 모든 컷신 아이템을 실행
+    public void PlaySelectedItems() 
     {
-        dr = FindFirstObjectByType<DialogueRunner>();
-    }
-
-    public void LoadScene(string sceneName)
-    {
-        Debug.Log($"[GameManager] Loading Scene: {sceneName}");
-        SceneManager.LoadScene(sceneName);
-    }
-    public void AdvanceDay()
-    {
-        currentDay++;
-        Debug.Log($"[GameManager] Day advanced -> {currentDay}");
-
-        // Yarn ������ ����ȭ
-        SetYarnVariable("day", currentDay);
-    }
-
-    public void SetYarnVariable(string varName, object value)
-    {
-        string fullName = "$" + varName;
-        var storage = dr.VariableStorage;
-
-        if (value is int iVal)
+        foreach (var item in playlist) 
         {
-            storage.SetValue(fullName, iVal);
-        }
-        else if (value is float fVal)
-        {
-            storage.SetValue(fullName, fVal);
-        }
-        else if (value is bool bVal)
-        {
-            storage.SetValue(fullName, bVal);
-        }
-        else if (value is string sVal)
-        {
-            storage.SetValue(fullName, sVal);
-        }
-        else
-        {
-            Debug.Log($"[GameManager] Unsupported type for Yarn variables {varName}");
+            if (item.selected) 
+            {
+                PlayCutsceneItem(item);
+            }
         }
     }
 
-    public object GetYarnVariable<T>(string varName)
+    // 단일 PlaylistItem을 실행하는 내부 함수
+    private void PlayCutsceneItem(PlaylistItem item) 
     {
-        string fullName = "$" + varName;
-        var storage = dr.VariableStorage;
-        var yarnValue = storage.TryGetValue<T>(fullName, out T outVal);
-
-        return outVal;
-
+        if (item.itemType == PlaylistItemType.Timeline) 
+        {
+            item.timeline.Play();
+        } 
+        else if (item.itemType == PlaylistItemType.Dialogue) 
+        {
+            dialogueRunner.StartDialogue(item.dialogueNode);
+        }
     }
 
+    // Yarn 스크립트에서 <<PlayCutscene "CutsceneID">> 형식으로 호출하면 해당 ID를 가진 컷신을 실행
+    [YarnCommand("PlayCutscene")]
+    public void PlayCutscene(string cutsceneID) 
+    {
+        PlaylistItem item = playlist.Find(x => x.id == cutsceneID);
+        PlayCutsceneItem(item);
+    }
+
+     private void Log(string message) 
+     {
+        Debug.Log(message);
+        debugLogs.Add(message);
+        // 로그가 너무 많아지지 않도록 제한
+        if (debugLogs.Count > 50) {
+            debugLogs.RemoveAt(0);
+        }
+    }
 }

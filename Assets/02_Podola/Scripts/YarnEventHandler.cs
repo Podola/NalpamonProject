@@ -19,7 +19,7 @@ public class YarnEventHandler : MonoBehaviour
         var dialogueRunner = dialogueManager.dialogueRunner;
 
         // PlayCutscene 코루틴 커맨드 등록 (int cutsceneIndex, string nextNode)
-        dialogueRunner.AddCommandHandler<int, string>("PlayCutscene", Command_PlayCutscene);
+        dialogueRunner.AddCommandHandler<int, string>("PlayCutscene0", Command_PlayCutscene);
 
         dialogueRunner.AddCommandHandler("HideIllustration", Command_HideIllustration);
         dialogueRunner.AddCommandHandler<string, string>("ShowStanding", Command_ShowStanding);

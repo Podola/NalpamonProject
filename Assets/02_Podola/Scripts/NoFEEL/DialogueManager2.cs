@@ -1,11 +1,15 @@
 using UnityEngine;
+using Yarn.Unity;
 
 public class DialogueManager2 : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private DialogueRunner dialogueRunner;
+    private BubbleManager2 bubbleManager;
+    
+    void Awake()
     {
-        
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        bubbleManager = FindFirstObjectByType<BubbleManager2>();
     }
 
     // Update is called once per frame

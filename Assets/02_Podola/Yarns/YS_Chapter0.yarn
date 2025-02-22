@@ -1,4 +1,4 @@
-﻿title: Start
+title: Start
 ---
 대화를 시작합니다.
 <<PlayCutscene "죠슈 등장">> // 죠슈 등장씬
@@ -99,6 +99,7 @@ title: AfterCutscene0
 <<DisableBlur>>
 
 <<PlayCutscene 1 "AfterCutscene1">> // 아자토스 소환씬
+
 ===
 
 title: AfterCutscene1
@@ -110,5 +111,6 @@ title: AfterCutscene1
 title: AfterCutscene2
 ---
 종료.
+
 <<FadeOut>>
 ===

@@ -33,7 +33,7 @@ public class GameManagerEditor : Editor
                 if (item.itemType == PlaylistItemType.Dialogue)
                 {
                     item.dialogueNode = EditorGUILayout.TextField("Dialogue Node", item.dialogueNode);
-                    // id 자동 동기화: 대화 타입이면 id를 dialogueNode로 설정 (빈 경우에도)
+                    // id 자동 동기화: 대화 타입이면 id를 dialogueNode로 설정
                     if (string.IsNullOrEmpty(item.id) || item.id != item.dialogueNode)
                     {
                         item.id = item.dialogueNode;
@@ -47,12 +47,7 @@ public class GameManagerEditor : Editor
                     }
                     item.sceneTimelineMapping.sceneName = EditorGUILayout.TextField("Scene Name", item.sceneTimelineMapping.sceneName);
                     item.sceneTimelineMapping.timelineAsset = (TimelineAsset)EditorGUILayout.ObjectField("Timeline Asset", item.sceneTimelineMapping.timelineAsset, typeof(TimelineAsset), false);
-                    item.sceneTimelineMapping.triggerSceneTransition = EditorGUILayout.Toggle("Trigger Scene Transition", item.sceneTimelineMapping.triggerSceneTransition);
-                    if (item.sceneTimelineMapping.triggerSceneTransition)
-                    {
-                        item.sceneTimelineMapping.targetSceneName = EditorGUILayout.TextField("Target Scene Name", item.sceneTimelineMapping.targetSceneName);
-                    }
-                    // id 자동 동기화: 타임라인 타입이면 id를 TimelineAsset의 이름로 설정
+                    // id 자동 동기화: 타임라인 타입이면 id를 TimelineAsset의 이름으로 설정
                     if (item.sceneTimelineMapping.timelineAsset != null)
                     {
                         string autoID = item.sceneTimelineMapping.timelineAsset.name;
@@ -62,7 +57,8 @@ public class GameManagerEditor : Editor
                         }
                     }
                 }
-                // 아이템 타입은 등록 후에 수정 가능하도록 하되, id는 자동 갱신되므로 편집 필드는 표시하지 않음.
+
+                // ItemType은 선택 후 수정 가능 (id 필드는 자동 갱신되므로 노출하지 않음)
                 item.itemType = (PlaylistItemType)EditorGUILayout.EnumPopup("Item Type", item.itemType);
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.Space();

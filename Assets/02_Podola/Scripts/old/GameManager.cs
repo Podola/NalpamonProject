@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameState currentState = GameState.Explore;
 
     [Header("플레이리스트(타임라인 or 대화)")]
-    [Tooltip("게임의 컷신 흐름을 정의합니다. 각 아이템은 타임라인 또는 대화 컷신으로 구성됩니다.")]
+    [Tooltip("게임의 컷신 흐름을 정의합니다. 각 항목은 타임라인 또는 대화 컷신으로 구성됩니다.")]
     public List<PlaylistItem> playlist = new List<PlaylistItem>();
 
     private DialogueRunner dialogueRunner;
@@ -40,15 +40,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (exploreUI != null)
-        {
-            DontDestroyOnLoad(exploreUI);
-        }
-        if (interrogationUI != null)
-        {
-            DontDestroyOnLoad(interrogationUI);
-        }
     }
 
     public void ChangeState(GameState newState)
@@ -68,24 +59,14 @@ public class GameManager : MonoBehaviour
     {
         GameState previousState = currentState;
         ChangeState(GameState.Cutscene);
-        
+
         if (item.itemType == PlaylistItemType.Timeline)
         {
             if (item.sceneTimelineMapping != null && item.sceneTimelineMapping.timelineAsset != null)
             {
                 StartCoroutine(PlayTimelineWithPreplacedDirector(item.sceneTimelineMapping, item.id, () =>
                 {
-                    if (item.sceneTimelineMapping.triggerSceneTransition)
-                    {
-                        StartCoroutine(TransitionToScene(item.sceneTimelineMapping.targetSceneName, () =>
-                        {
-                            ChangeState(previousState);
-                        }));
-                    }
-                    else
-                    {
-                        ChangeState(previousState);
-                    }
+                    ChangeState(previousState);
                 }));
             }
             else
@@ -121,24 +102,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayTimelineWithScene(SceneTimelineMapping mapping, string timelineID, System.Action onComplete)
+    private IEnumerator PlayTimelineWithPreplacedDirector(SceneTimelineMapping mapping, string timelineID, System.Action onComplete)
     {
-        Scene targetScene = SceneManager.GetSceneByName(mapping.sceneName);
-        if (!targetScene.isLoaded)
+        // 현재 활성 씬(active scene)이 mapping.sceneName과 일치하는지 확인
+        Scene activeScene = SceneManager.GetActiveScene();
+        if (!activeScene.name.Equals(mapping.sceneName))
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(mapping.sceneName, LoadSceneMode.Additive);
+            Log($"현재 활성 씬({activeScene.name})과 요구 씬({mapping.sceneName})이 다릅니다. 자동 씬 전환 진행...");
+            // Single 모드로 씬 전환 (기존 씬은 자동 언로드됨)
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(mapping.sceneName, LoadSceneMode.Single);
             yield return new WaitUntil(() => asyncLoad.isDone);
-            Log($"씬 '{mapping.sceneName}' 로드 완료.");
+            Log($"씬 전환 완료: {mapping.sceneName} 로드 완료.");
         }
-        else
+
+        // 이제 활성 씬은 mapping.sceneName이어야 합니다.
+        // 미리 배치된 PlayableDirector GameObject를 찾습니다.
+        // GameObject의 이름은 TimelineAsset의 이름과 동일해야 합니다.
+        GameObject directorGO = GameObject.Find(mapping.timelineAsset.name);
+        if (directorGO == null)
         {
-            Log($"씬 '{mapping.sceneName}' 이미 로드됨.");
+            Log($"오류: '{mapping.timelineAsset.name}' 이름의 PlayableDirector GameObject를 찾을 수 없습니다.");
+            yield break;
         }
 
-        GameObject tempDirectorGO = new GameObject("TempTimelineDirector_" + timelineID);
-        SceneManager.MoveGameObjectToScene(tempDirectorGO, SceneManager.GetSceneByName(mapping.sceneName));
+        PlayableDirector director = directorGO.GetComponent<PlayableDirector>();
+        if (director == null)
+        {
+            Log($"오류: '{mapping.timelineAsset.name}' GameObject에 PlayableDirector 컴포넌트가 없습니다.");
+            yield break;
+        }
 
-        PlayableDirector director = tempDirectorGO.AddComponent<PlayableDirector>();
+        // 재생 전에 TimelineAsset을 재할당 (필요한 경우)
         director.playableAsset = mapping.timelineAsset;
 
         bool isStopped = false;
@@ -151,21 +145,9 @@ public class GameManager : MonoBehaviour
         Log($"타임라인 컷신 실행: {timelineID}");
 
         yield return new WaitUntil(() => isStopped);
-        Destroy(tempDirectorGO);
 
         onComplete?.Invoke();
     }
-
-    // 씬 전환 코루틴: targetSceneName으로 전환
-    private IEnumerator TransitionToScene(string targetSceneName, System.Action onTransitionComplete)
-{
-    // Single 모드로 씬 전환 (현재 씬은 자동 언로드됨)
-    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetSceneName, LoadSceneMode.Single);
-    yield return new WaitUntil(() => asyncLoad.isDone);
-    Log($"씬 전환: '{targetSceneName}' 로드 완료.");
-    
-    onTransitionComplete?.Invoke();
-}
 
     [YarnCommand("PlayCutscene")]
     public void PlayCutscene(string cutsceneID)
@@ -189,51 +171,5 @@ public class GameManager : MonoBehaviour
         {
             debugLogs.RemoveAt(0);
         }
-    }
-
-    private IEnumerator PlayTimelineWithPreplacedDirector(SceneTimelineMapping mapping, string timelineID, System.Action onComplete)
-    {
-        // 현재 활성 씬(active scene)이 mapping.sceneName과 일치하는지 확인
-        Scene activeScene = SceneManager.GetActiveScene();
-        if (!activeScene.name.Equals(mapping.sceneName))
-        {
-            Log($"현재 활성 씬({activeScene.name})과 요구 씬({mapping.sceneName})이 다릅니다. 씬 전환 진행...");
-            // Single 모드로 씬 전환 (기존 씬은 자동 언로드됨)
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(mapping.sceneName, LoadSceneMode.Single);
-            yield return new WaitUntil(() => asyncLoad.isDone);
-            Log($"씬 전환 완료: {mapping.sceneName} 로드 완료.");
-        }
-        
-        // 이제 활성 씬은 mapping.sceneName이어야 합니다.
-        // 미리 배치된 PlayableDirector GameObject를 찾습니다.
-        GameObject directorGO = GameObject.Find(mapping.timelineAsset.name);
-        if (directorGO == null)
-        {
-            Log($"오류: '{mapping.timelineAsset.name}' 이름의 PlayableDirector GameObject를 찾을 수 없습니다.");
-            yield break;
-        }
-        
-        PlayableDirector director = directorGO.GetComponent<PlayableDirector>();
-        if (director == null)
-        {
-            Log($"오류: '{mapping.timelineAsset.name}' GameObject에 PlayableDirector 컴포넌트가 없습니다.");
-            yield break;
-        }
-        
-        // 필요한 경우 TimelineAsset을 재할당
-        director.playableAsset = mapping.timelineAsset;
-        
-        bool isStopped = false;
-        director.stopped += (PlayableDirector pd) =>
-        {
-            isStopped = true;
-        };
-        
-        director.Play();
-        Log($"타임라인 컷신 실행: {timelineID}");
-        
-        yield return new WaitUntil(() => isStopped);
-        
-        onComplete?.Invoke();
     }
 }

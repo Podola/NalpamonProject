@@ -1084,6 +1084,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2130046111}
     - target: {fileID: 2758491944934553738, guid: 52fcd961edb5d714d8e9a3267798ca38, type: 3}
+      propertyPath: currentState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758491944934553738, guid: 52fcd961edb5d714d8e9a3267798ca38, type: 3}
       propertyPath: interrogationUI
       value: 
       objectReference: {fileID: 1048193478}

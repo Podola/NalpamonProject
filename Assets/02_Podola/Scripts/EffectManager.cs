@@ -1,4 +1,4 @@
-using MoreMountains.Feedbacks;
+//using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class EffectManager : MonoBehaviour
@@ -9,16 +9,16 @@ public class EffectManager : MonoBehaviour
 
     public void ShakeCamera()
     {
-        cameraShaker.GetComponent<MMF_Player>().PlayFeedbacks();
+        //cameraShaker.GetComponent<MMF_Player>().PlayFeedbacks();
     }
 
     public void FadeIn()
     {
-        cameraFadeIn.GetComponent<MMF_Player>().PlayFeedbacks();
+        //cameraFadeIn.GetComponent<MMF_Player>().PlayFeedbacks();
     }
 
     public void FadeOut()
     {
-        cameraFadeOut.GetComponent<MMF_Player>().PlayFeedbacks();
+        //cameraFadeOut.GetComponent<MMF_Player>().PlayFeedbacks();
     }
 }

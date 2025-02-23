@@ -1,6 +1,6 @@
 using System.Collections;
 using DG.Tweening;
-using MoreMountains.Feedbacks;
+//using MoreMountains.Feedbacks;
 using TMPro;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ public class BubbleController : MonoBehaviour
     public SpriteRenderer bgRenderer;
 
     [Header("Feel 설정")]
-    public MMF_Player mmfPlayer;
+    //public MMF_Player mmfPlayer;
 
     [Header("Fade 설정")]
     public float fadeInDuration = 0.5f;
@@ -54,13 +54,13 @@ public class BubbleController : MonoBehaviour
             Color bgColor = bgRenderer.color;
             bgRenderer.color = new Color(bgColor.r, bgColor.g, bgColor.b, 1f);
 
-            mmfPlayer.PlayFeedbacks();
+            //mmfPlayer.PlayFeedbacks();
         }
         else
         {
             textMeshPro.text = newLine.bubbleText;
             FadeInBubble();
-            mmfPlayer.PlayFeedbacks();
+            //mmfPlayer.PlayFeedbacks();
         }
 
          // 말풍선 자동 Hide 타이머 재설정

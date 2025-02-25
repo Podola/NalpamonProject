@@ -1,93 +1,72 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class BubbleManager : MonoBehaviour
 {
-    public BubbleSO bubbleSO;
-    public BubbleController[] bubbleControllers;
+    public static BubbleManager Instance;
 
-    public int currentLineIndex = 0;            // bubbleSO의 index
-    public bool bubbleActive = false;           // 말풍선 기능 사용 여부
-    private string previousSpeaker = "";        // 이전 대사의 화자 기록
+    [Tooltip("현재 타임라인 컷에 등록된 BubbleSO")]
+    public BubbleSO currentBubble;
 
-    void Start()
+    [Tooltip("현재 씬의 캐릭터 말풍선 컨트롤러 목록")]
+    public List<CharBubble> bubbles = new List<CharBubble>();
+    private int currentIndex = 0;
+    void Awake()
     {
-        // 시작 시 모든 말풍선을 숨김
-        foreach(var c in bubbleControllers)
+        if (Instance == null)
         {
-            c.InActive();
-        }
-        currentLineIndex = 0;
-        bubbleActive = false;
-        previousSpeaker = "";
-    }
-
-    void Update()
-    {
-        if(bubbleSO.lines.Length == 0)
-        {
-            return;
-        }
-
-        // LeftShift 입력으로 대사 진행 (실제 구현은 타임라인 Signal 이벤트로 제어)
-        if(bubbleActive && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            NextBubbleLine();
-        }
-    }
-
-    // 현재 인덱스의 대사를 업데이트
-    void UpdateCurrentBubble()
-    {
-        BubbleLine line = bubbleSO.lines[currentLineIndex];
-        
-        // 현재 대사의 화자
-        string currentSpeaker = line.speaker;
-
-        // 해당 화자의 BubbleController 찾기
-        BubbleController target = System.Array.Find(bubbleControllers, s => s.speaker.Equals(currentSpeaker));
-        if(target == null)
-        {
-            Debug.LogWarning("Speaker " + line.speaker + "에 해당하는 BubbleController를 찾을 수 없습니다.");
-            return;
-        }
-
-        // 같은 화자의 연속 대사인지 확인
-        bool continuous = currentSpeaker.Equals(previousSpeaker);
-        target.UpdateBubble(line, continuous);
-
-        previousSpeaker = currentSpeaker;
-    }
-
-    // 다음 대사로 전환
-    public void NextBubbleLine()
-    {
-        if(currentLineIndex < bubbleSO.lines.Length -1)
-        {
-            currentLineIndex++;
-            UpdateCurrentBubble();
+            Instance = this;
         }
         else
         {
-            EndBubble();
+            Destroy(gameObject);
         }
     }
 
-    // 외부에서 이벤트로 대화 시작 시 호출
-    public void StartBubble(int index = 0)
+    public void UpdateBubbles()
     {
-         bubbleActive = true;
-         currentLineIndex = index;
-         previousSpeaker = "";
-         UpdateCurrentBubble();
+        // 현재 씬에 있는 모든 CharBubble 다시 수집
+        bubbles = new List<CharBubble>(FindObjectsOfType<CharBubble>());
     }
 
-    void EndBubble()
+    public void RegisterBubbleSO(BubbleSO bubble)
     {
-        bubbleActive = false;
-        foreach(var c in bubbleControllers)
+        currentBubble = bubble;
+        currentIndex = 0;
+        Debug.Log("Bubble registered: " + bubble.name);
+    }
+
+    /// <summary>
+    /// Timeline 시그널 트랙 등에서 호출해, currentBubble의 특정 라인(혹은 전 라인)을 표시
+    /// </summary>
+    public void DisplayBubble()
+    {
+        var line = currentBubble.lines[currentIndex];
+        // Speaker 이름으로 CharBubble 찾기
+        CharBubble target = bubbles.Find(b => b.speaker.Equals(line.speaker));
+        if (target != null)
         {
-            c.InActive();
+            // CharBubble가 말풍선을 표시
+            // ShowBubble(string text, float duration) 형태에 맞게
+            target.ShowBubble(line.text, target.duration);
+        }
+        else
+        {
+            Debug.LogWarning("No CharBubble found for speaker: " + line.speaker);
+        }
+
+        currentIndex++;
+    }
+
+    public void HideAllBubbles()
+    {
+        if (bubbles == null) return;
+        foreach (var bubble in bubbles)
+        {
+            if (bubble != null)
+            {
+                bubble.HideImmediate();
+            }
         }
     }
 }

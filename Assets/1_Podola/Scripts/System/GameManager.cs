@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     [Header("현재 게임 상태")]
     public GameState currentState = GameState.Explore;
 
+    [Header("대화창 컨티뉴 버튼")]
+    public GameObject continueButton;
+
     [Header("Yarn 대화 러너")]
     private DialogueRunner dialogueRunner; 
     private DialogueManager dialogueManager;

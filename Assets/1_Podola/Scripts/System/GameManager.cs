@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(transform.root.gameObject);   // DDOL GlobalManager Prefab
+            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
         }
         else

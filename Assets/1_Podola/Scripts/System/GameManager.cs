@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Yarn 대화 러너")]
     private DialogueRunner dialogueRunner; 
-
+    private DialogueManager dialogueManager;
     void Awake()
     {
         if (Instance == null)
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(transform.root.gameObject);   // DDOL GlobalManager Prefab
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+            dialogueManager = FindFirstObjectByType<DialogueManager>();
             dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
         }
         else
@@ -44,6 +45,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        dialogueRunner.AddCommandHandler<string, string, string>("ShowStanding", YarnShowStanding);
+    }
+
+    public DialogueRunner GetDialogueRunner()
+    {
+        return dialogueRunner;
+    }
     /// <summary>
     /// ChapterManager에서 스토리 스텝 목록을 전달받음
     /// </summary>
@@ -219,6 +229,16 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GameManager] GameState -> {newState}");
     }
 
+    public void YarnShowStanding(string position, string characterName, string expression)
+    {
+        // DialogueManager 내부의 코루틴을 실행
+        StartCoroutine(dialogueManager.ShowStanding(position, characterName, expression));
+    }
+
+    public void YarnHideStanding(string position)
+    {
+        StartCoroutine(dialogueManager.HideStanding(position));
+    }
     
 }
 

@@ -26,8 +26,8 @@ public static class SingletonBootstrap
         instance.name = "GlobalManagers";  // (Clone) 꼬리표 제거
         Debug.Log("Load GlobalManagers");
 
-        /*
-          // 만약 씬에 이미 EventSystem이 존재한다면
+        
+        // 만약 씬에 이미 EventSystem이 존재한다면
         var existingEventSystem = Object.FindAnyObjectByType<EventSystem>();
         if (existingEventSystem != null)
         {
@@ -39,6 +39,6 @@ public static class SingletonBootstrap
                 Debug.Log("Disable duplicate EventSystem on GlobalManagers prefab.");
             }
         }
-        */
+        
     }
 }

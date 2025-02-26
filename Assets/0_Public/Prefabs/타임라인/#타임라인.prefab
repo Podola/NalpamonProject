@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 65246311170694276}
   - component: {fileID: 3674984088065722423}
   - component: {fileID: 1904740331573731080}
-  - component: {fileID: 6244765646830483671}
+  - component: {fileID: 5814064393464781338}
   m_Layer: 0
   m_Name: "#\uD0C0\uC784\uB77C\uC778"
   m_TagString: Untagged
@@ -48,7 +48,9 @@ PlayableDirector:
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings: []
+  m_SceneBindings:
+  - key: {fileID: -7264000535950508809, guid: 3286d0fc89de14d46a2c13b9d4069774, type: 2}
+    value: {fileID: 5814064393464781338}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &1904740331573731080
@@ -64,7 +66,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubbleSO: {fileID: 0}
---- !u!114 &6244765646830483671
+  dialogueNode: 
+--- !u!114 &5814064393464781338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,6 +76,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 4628137219090451956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a4059b2a45cc9540acd62d1bf6393d6, type: 3}
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 0b0bd531db102d9408b2dab184ad8ef0, type: 2}
+    - {fileID: 11400000, guid: c020519a860f5b1459d94c8468872abd, type: 2}
+    - {fileID: 11400000, guid: 5cbfd3e8bdae1f04c9bbf1458416193d, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1904740331573731080}
+          m_TargetAssemblyTypeName: PlayableDirectorController, Assembly-CSharp
+          m_MethodName: OnBubbleSignal
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1904740331573731080}
+          m_TargetAssemblyTypeName: PlayableDirectorController, Assembly-CSharp
+          m_MethodName: OnBeginDialogueSignal
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1904740331573731080}
+          m_TargetAssemblyTypeName: PlayableDirectorController, Assembly-CSharp
+          m_MethodName: OnNextDialogueSignal
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

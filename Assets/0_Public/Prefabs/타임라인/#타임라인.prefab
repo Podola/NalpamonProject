@@ -67,6 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubbleSO: {fileID: 0}
   dialogueNode: 
+  continueButton: {fileID: 0}
 --- !u!114 &5814064393464781338
 MonoBehaviour:
   m_ObjectHideFlags: 0

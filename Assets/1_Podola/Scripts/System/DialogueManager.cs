@@ -153,7 +153,7 @@ public class DialogueManager : MonoBehaviour
             case "left2":
                 return standingLeft2;
             case "right2":
-                return standingLeft2;
+                return standingRight2;
             case "center":
                 return standingCenter;
             // 필요하다면 "center", "left2", "right2" 등 추가

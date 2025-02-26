@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3225175475426983018, guid: b3e4c69df0b1a264ebdc0c9fb3d93cab, type: 3}
       propertyPath: speaker
-      value: "\uC8E0\uC288 Variant"
+      value: "\uC8E0\uC288"
       objectReference: {fileID: 0}
     - target: {fileID: 5826641555012841179, guid: b3e4c69df0b1a264ebdc0c9fb3d93cab, type: 3}
       propertyPath: m_Name
-      value: "\uC8E0\uC288 Variant"
+      value: "\uC8E0\uC288"
       objectReference: {fileID: 0}
     - target: {fileID: 7609579487178979426, guid: b3e4c69df0b1a264ebdc0c9fb3d93cab, type: 3}
       propertyPath: m_LocalPosition.x

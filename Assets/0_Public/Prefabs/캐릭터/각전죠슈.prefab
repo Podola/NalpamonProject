@@ -142,11 +142,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4524115701664815072, guid: d346b3712d3dd89489c5e6b0f438b20e, type: 3}
       propertyPath: m_Name
-      value: "\uAC01\uC804\uC8E0\uC288 Variant"
+      value: "\uAC01\uC804\uC8E0\uC288"
       objectReference: {fileID: 0}
     - target: {fileID: 4816213720542610769, guid: d346b3712d3dd89489c5e6b0f438b20e, type: 3}
       propertyPath: speaker
-      value: "\uAC01\uC804\uC8E0\uC288 Variant"
+      value: "\uAC01\uC804\uC8E0\uC288"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

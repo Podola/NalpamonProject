@@ -13,7 +13,7 @@ public static class SingletonBootstrap
         // 혹시 이미 GameManager.Instance가 씬 어딘가에 있다면 아무것도 안 함
         if (GameManager.Instance != null) return;
 
-        // 1) Resources 폴더에 "GlobalManagers" 라는 prefab을 배치
+        // 1) Resources 폴더에 "GlobalManagers" 라는 prefab을 로드
         var prefab = Resources.Load<GameObject>("GlobalManagers");
         if (prefab == null)
         {
@@ -26,7 +26,8 @@ public static class SingletonBootstrap
         instance.name = "GlobalManagers";  // (Clone) 꼬리표 제거
         Debug.Log("Load GlobalManagers");
 
-          // 만약 씬에 이미 EventSystem이 존재한다면
+        
+        // 만약 씬에 이미 EventSystem이 존재한다면
         var existingEventSystem = Object.FindAnyObjectByType<EventSystem>();
         if (existingEventSystem != null)
         {
@@ -38,5 +39,6 @@ public static class SingletonBootstrap
                 Debug.Log("Disable duplicate EventSystem on GlobalManagers prefab.");
             }
         }
+        
     }
 }

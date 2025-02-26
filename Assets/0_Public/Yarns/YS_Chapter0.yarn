@@ -1,0 +1,13 @@
+﻿title: Node00
+tags:
+---
+
+<<ShowStanding "left" "탐정" "탐정_기본">>
+탐정: 집 안에 사람이 아무도 없는건 확실히 이상해요.
+<<ShowStanding "left2" "아자토스" "아자토스_기본">>
+아자토스: 넌 누구냐.
+<<ShowStanding "right" "죠슈" "죠슈_비웃음">>
+죠슈: (웃음소리)
+탐정: 대화종료
+===    
+

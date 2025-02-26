@@ -495,8 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56dbbac476dbabc458bddaa943c30601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chapters:
-  - {fileID: 0}
+  chapters: []
 --- !u!1 &8788648373245851052
 GameObject:
   m_ObjectHideFlags: 0

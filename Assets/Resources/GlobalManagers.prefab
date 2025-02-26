@@ -495,8 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56dbbac476dbabc458bddaa943c30601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chapters:
-  - {fileID: 0}
+  chapters: []
 --- !u!1 &8788648373245851052
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 4908000354184008630}
     - target: {fileID: 3579681405068720530, guid: 7f29e5f7ffdea4a6793cefb278b61f0c, type: 3}
       propertyPath: startAutomatically
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3739197626111815070, guid: 7f29e5f7ffdea4a6793cefb278b61f0c, type: 3}
       propertyPath: m_SortingOrder

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd836d2626f9e44985c94ab7223b6f7, type: 3}
+  m_Name: SampleBubbleSO
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: "\uC8E0\uC288"
+    text: "\uC8E0\uC288\uC785\uB2C8\uB2E4\t"
+    duration: 0
+  - speaker: "\uD0D0\uC815"
+    text: "\uD0D0\uC815\uC785\uB2C8\uB2E4"
+    duration: 0
+  - speaker: "\uC8E0\uC288"
+    text: "\uC798\uAC00\uC138\uC694!"
+    duration: 0

@@ -77,6 +77,7 @@ public class DialogueManager : MonoBehaviour
             // 1) 해당 위치가 비어있다면 => 새 캐릭터 스탠딩 등장 (페이드인)
             currentStanding[position] = (characterName, expression);
             targetImage.sprite = newSprite;
+            targetImage.SetNativeSize();
             targetImage.color = new Color(1, 1, 1, 0);
             targetImage.gameObject.SetActive(true);
 
@@ -95,6 +96,7 @@ public class DialogueManager : MonoBehaviour
                 // 교체
                 currentStanding[position] = (characterName, expression);
                 targetImage.sprite = newSprite;
+                targetImage.SetNativeSize();
                 targetImage.color = new Color(1, 1, 1, 0);
                 targetImage.gameObject.SetActive(true);
 
@@ -107,8 +109,8 @@ public class DialogueManager : MonoBehaviour
                 {
                     yield return StartCoroutine(FadeAlpha(targetImage, 1f, 0.5f, expressionFadeDuration * 0.5f));
                     currentStanding[position] = (characterName, expression);
-
                     targetImage.sprite = newSprite;
+                    targetImage.SetNativeSize();
                     yield return StartCoroutine(FadeAlpha(targetImage, 0.5f, 1f, expressionFadeDuration * 0.5f));
                 }
                 // 동일 표정이면 아무 변화 없음

@@ -24,7 +24,7 @@ public class BubbleManager : MonoBehaviour
     public void UpdateBubbleControllers()
     {
         // 현재 씬에 존재하는 BubbleController 재수집
-    bubbleControllers = new List<BubbleController>(Object.FindObjectsByType<BubbleController>(FindObjectsInactive.Include, FindObjectsSortMode.None));
+        bubbleControllers = new List<BubbleController>(Object.FindObjectsByType<BubbleController>(FindObjectsInactive.Include, FindObjectsSortMode.None));
     }
 
     public void RegisterBubbleSO(BubbleSO bubbleSO)
@@ -41,14 +41,14 @@ public class BubbleManager : MonoBehaviour
     {
         if(currentBubbleSO == null)
         {
-            Debug.LogWarning("[BubbleManager] BubbleSO is null");
+            Debug.LogWarning("[BubbleManager] BubbleSO가 null입니다다");
             return;
         }
 
         currentIndex++;
         if(currentIndex <0 || currentIndex >= currentBubbleSO.lines.Count)
         {
-            Debug.LogWarning("[BubbleManager] currentIndex is out of range");
+            Debug.LogWarning("[BubbleManager] currentIndex가 범위 밖입니다");
             return;
 
         }
@@ -63,7 +63,7 @@ public class BubbleManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[BubbleManager] No BubbleController found for speaker: " + line.speaker);
+            Debug.LogWarning($"[BubbleManager] line.speaker: {line.speaker}에 해당하는 BubbleController가 없습니다.: ");
         }
     }
 

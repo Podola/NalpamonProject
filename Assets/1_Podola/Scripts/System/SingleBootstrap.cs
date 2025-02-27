@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 어떤 씬을 열어도(Play 버튼을 눌러도) GlobalManagers가 없으면
@@ -7,6 +8,9 @@ using UnityEngine.EventSystems;
 /// </summary>
 public static class SingletonBootstrap
 {
+     // GlobalManagers 프리팹의 EventSystem을 캐싱하기 위한 변수
+    private static EventSystem prefabEventSystem;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void EnsureGlobalManagers()
     {
@@ -17,28 +21,47 @@ public static class SingletonBootstrap
         var prefab = Resources.Load<GameObject>("GlobalManagers");
         if (prefab == null)
         {
-            Debug.LogWarning("GlobalManagers prefab not found in Resources folder!");
+            Debug.LogWarning("[SingleBootstrap] GlobalManagers 프리팹이 리소스 폴더에 없습니다");
             return;
         }
 
         // 2) 인스턴스화
         GameObject instance = GameObject.Instantiate(prefab);
         instance.name = "GlobalManagers";  // (Clone) 꼬리표 제거
-        Debug.Log("Load GlobalManagers");
+        Debug.Log("[SingleBootstrap] Load GlobalManagers");
 
+       // 프리팹 내부에 있는 EventSystem 컴포넌트를 캐싱 (없으면 null)
+        prefabEventSystem = instance.GetComponentInChildren<EventSystem>();
+
+        // 씬이 로드된 후 중복 EventSystem을 체크하도록 이벤트 구독
+        SceneManager.sceneLoaded += OnSceneLoaded;
         
-        // 만약 씬에 이미 EventSystem이 존재한다면
-        var existingEventSystem = Object.FindAnyObjectByType<EventSystem>();
-        if (existingEventSystem != null)
+    }
+      // 씬 로드 완료 시 호출되는 콜백
+    static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 씬에 존재하는 모든 EventSystem 검색
+        EventSystem[] allEventSystems = Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
+
+        // 프리팹의 EventSystem 이외에 다른 EventSystem이 있는지 확인
+        bool foundOther = false;
+        foreach (var ev in allEventSystems)
         {
-            // 프리팹 내부의 EventSystem 컴포넌트를 찾아 비활성화
-            var prefabEventSystem = instance.GetComponentInChildren<EventSystem>();
-            if (prefabEventSystem != null)
+            if (ev != prefabEventSystem)
             {
-                prefabEventSystem.gameObject.SetActive(false);
-                Debug.Log("Disable duplicate EventSystem on GlobalManagers prefab.");
+                foundOther = true;
+                break;
             }
         }
-        
+
+        // 만약 다른 EventSystem이 있다면 프리팹의 것을 비활성화
+        if (foundOther && prefabEventSystem != null)
+        {
+            prefabEventSystem.gameObject.SetActive(false);
+            Debug.Log("[SingleBootstrap] 이벤트 시스템 중복으로 GlobalManagers의 이벤트 시스템을 비활성화합니다.");
+        }
+
+        // 한 번 체크한 후 이벤트 구독 해제
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

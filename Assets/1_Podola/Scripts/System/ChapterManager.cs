@@ -34,14 +34,14 @@ public class ChapterManager : MonoBehaviour
     {
         if (chapterIndex < 0 || chapterIndex >= chapters.Count)
         {
-            Debug.LogError($"ChapterManager: 잘못된 챕터 인덱스: {chapterIndex}");
+            Debug.LogError($"[ChapterManager] 잘못된 챕터 인덱스: {chapterIndex}");
             return;
         }
 
         currentChapterIndex = chapterIndex;
         ChapterSO data = chapters[chapterIndex];
 
-        Debug.Log($"ChapterManager: 챕터 {chapterIndex+1} 시작: {data.chapterTitle}");
+        Debug.Log($"[ChapterManager] 챕터 {chapterIndex+1} 시작: {data.chapterTitle}");
 
         // GameManager에게 이 챕터의 스텝 목록을 넘겨주고 실행
         if (GameManager.Instance != null)
@@ -63,7 +63,7 @@ public class ChapterManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("ChapterManager: 모든 챕터를 완료했습니다!");
+            Debug.Log("[ChapterManager] 모든 챕터를 완료했습니다!");
         }
     }
 
@@ -73,7 +73,7 @@ public class ChapterManager : MonoBehaviour
     /// </summary>
     public void OnChapterEnd()
     {
-        Debug.Log($"ChapterManager: 챕터 {currentChapterIndex+1} 끝!");
+        Debug.Log($"[ChapterManager] 챕터 {currentChapterIndex+1} 끝!");
         // NextChapter(); // 필요 시 자동 진행
     }
 }

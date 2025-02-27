@@ -480,8 +480,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "8PT\uAE40\uC815\uCCA0\uBCFC\uB4DC"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: efd736a38c6acef429d93099f4805998, type: 2}
-  m_sharedMaterial: {fileID: 2134375875007963290, guid: efd736a38c6acef429d93099f4805998, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 77d4805750293e34b844488b365a58bd, type: 2}
+  m_sharedMaterial: {fileID: -952543311108732834, guid: 77d4805750293e34b844488b365a58bd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

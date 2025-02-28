@@ -120,14 +120,14 @@ public class GameManager : MonoBehaviour
         GameObject directorGO = GameObject.Find(step.timelineAsset.name);
         if (directorGO == null)
         {
-            Debug.LogWarning($"Timeline 오브젝트 '{step.timelineAsset.name}' 없음.");
+            Debug.LogWarning($"[GameManager] Timeline 오브젝트 '{step.timelineAsset.name}' 없음.");
             NextStep();
             yield break;
         }
         var director = directorGO.GetComponent<PlayableDirector>();
         if (director == null)
         {
-            Debug.LogWarning("PlayableDirector 컴포넌트가 없습니다.");
+            Debug.LogWarning("[GameManager] PlayableDirector 컴포넌트가 없습니다.");
             NextStep();
             yield break;
         }
@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
         director.stopped += _ => { isStopped = true; };
         director.time = 0;
         director.Play();
-        Debug.Log($"[Timeline] {step.id} 재생 시작 (씬: {step.sceneName})");
+        Debug.Log($"[GameManager][Timeline] {step.id} 재생 시작 (씬: {step.sceneName})");
 
         // 스킵 처리
         while (!isStopped)
@@ -146,12 +146,12 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 director.time = director.duration;
-                Debug.Log($"[Timeline] {step.id} 스킵");
+                Debug.Log($"[GameManager][Timeline] {step.id} 스킵");
             }
             yield return null;
         }
 
-        Debug.Log($"[Timeline] {step.id} 종료");
+        Debug.Log($"[GameManager][Timeline] {step.id} 종료");
         NextStep();
     }
 
@@ -165,14 +165,14 @@ public class GameManager : MonoBehaviour
         // 씬 로드
         yield return LoadSceneRoutine(step.sceneName);
 
-        Debug.Log($"[Dialogue] {step.id} (노드: {step.dialogueNode})");
+        Debug.Log($"[GameManager][Dialogue] {step.id} (노드: {step.dialogueNode})");
         if (dialogueRunner != null && !string.IsNullOrEmpty(step.dialogueNode))
         {
             dialogueRunner.StartDialogue(step.dialogueNode);
         }
         else
         {
-            Debug.LogWarning($"대화 노드가 유효하지 않음: {step.dialogueNode}");
+            Debug.LogWarning($"[GameManager][Dialogue] 대화 노드가 유효하지 않음: {step.dialogueNode}");
             NextStep();
         }
     }
@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnDialogueComplete()
     {
-        Debug.Log("[Dialogue] 종료 -> NextStep");
+        Debug.Log("[GameManager][Dialogue] 종료 -> NextStep");
         NextStep();
     }
 
@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour
         // 씬 로드
         yield return LoadSceneRoutine(step.sceneName);
 
-        Debug.Log($"[Explore] {step.id} - 자유조사 시작 (씬: {step.sceneName}).");
+        Debug.Log($"[GameManager][Explore] {step.id} - 자유조사 시작 (씬: {step.sceneName}).");
         // 여기서 플레이어가 2D 이동 + 조사 가능
         // 조사 완료 시점에 OnExploreComplete()를 외부(씬 스크립트)에서 호출
     }
@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnExploreComplete()
     {
-        Debug.Log("[Explore] 조사 완료 -> NextStep");
+        Debug.Log("[GameManager][Explore] 조사 완료 -> NextStep");
         NextStep();
     }
 
@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour
 
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         yield return new WaitUntil(() => op.isDone);
-        Debug.Log($"씬 로드 완료: {sceneName}");
+        Debug.Log($"[GameManager] 씬 로드 완료: {sceneName}");
     }
 
     private void ChangeState(GameState newState)

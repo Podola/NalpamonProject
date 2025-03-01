@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     [Header("스탠딩 애니메이션 설정")]
     // 페이드 애니메이션 재생 시간 설정
     public float fadeDuration = 0.5f;             // 등장/퇴장 페이드 시간
-    public float expressionFadeDuration = 0.2f;   // 표정 변경 시 전환 시간
+    public float expressionFadeDuration = 0.0f;   // 표정 변경 시 전환 시간
 
     // 스프라이트 캐시: 이미 로드된 스프라이트 재사용을 위해 저장
     private Dictionary<string, Sprite> spriteCache = new Dictionary<string, Sprite>();
@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
 
         // 스프라이트 로드(캐시 사용)
         string resourcePath = $"스탠딩/{characterName}/{expression}";
-        Debug.Log($"{resourcePath}");
+        Debug.Log($"[DialogueManager] ShowStanding {resourcePath}");
         Sprite newSprite = null;
         if (!spriteCache.TryGetValue(resourcePath, out newSprite))
         {
@@ -104,14 +104,12 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                // 3) 같은 캐릭터이고, 표정만 바꾸는 경우 => 크로스페이드(약간 투명화 -> 교체 -> 다시 불투명)
+                // 3) 같은 캐릭터이고, 표정만 바꾸는 경우 => 즉각 교체
                 if (currExpr != expression)
                 {
-                    yield return StartCoroutine(FadeAlpha(targetImage, 1f, 0.5f, expressionFadeDuration * 0.5f));
                     currentStanding[position] = (characterName, expression);
                     targetImage.sprite = newSprite;
                     targetImage.SetNativeSize();
-                    yield return StartCoroutine(FadeAlpha(targetImage, 0.5f, 1f, expressionFadeDuration * 0.5f));
                 }
                 // 동일 표정이면 아무 변화 없음
             }
@@ -158,7 +156,6 @@ public class DialogueManager : MonoBehaviour
                 return standingRight2;
             case "center":
                 return standingCenter;
-            // 필요하다면 "center", "left2", "right2" 등 추가
         }
         return null;
     }

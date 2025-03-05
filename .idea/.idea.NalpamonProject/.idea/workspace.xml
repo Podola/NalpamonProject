@@ -6,22 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b5983a85-7265-41e2-ab3c-703bbf01d8ea" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NalpamonProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NalpamonProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2_ahahau/Scenes/아자토스 소환.playable" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2_ahahau/Scenes/아자토스 소환.playable.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/대화창/대화창화살표(하).png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/대화창/대화창화살표(하).png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/대화창/대화창화살표.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/대화창/대화창화살표.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/링귀니/1.PNG.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/링귀니/1.PNG.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/미스터파스타/1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/미스터파스타/1.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/미스터파스타/2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/미스터파스타/2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/미스터파스타/3.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/미스터파스타/3.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/바질/1.PNG.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/바질/1.PNG.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/올리브/1.PNG.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/올리브/1.PNG.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/집사장/1.PNG.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/집사장/1.PNG.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/1.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/3.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/3.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/4.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/4.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/5.PNG.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/스탠딩/챕터 1/파스타부인/5.PNG.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/2_ahahau/Scenes/UITestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/2_ahahau/Scenes/UITestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/NotebookUI/NoteState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/NotebookUI/NoteState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/NotebookUI/NoteStateMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/NotebookUI/NoteStateMove.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/제목 없음.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/제목 없음.png.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +21,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/2_ahahau/Scripts/Data/ProvisoData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/NotebookUI/NoteStateMove.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/NotebookUI/ProvisoState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/2_ahahau/Scripts/UI/NotebookUI/ShowProviso.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -114,6 +102,9 @@
       <workItem from="1740254593011" duration="6739000" />
       <workItem from="1740544564075" duration="3000" />
       <workItem from="1740740707858" duration="6405000" />
+      <workItem from="1740749493030" duration="3139000" />
+      <workItem from="1740998941072" duration="4347000" />
+      <workItem from="1741149230917" duration="3000" />
     </task>
     <servers />
   </component>

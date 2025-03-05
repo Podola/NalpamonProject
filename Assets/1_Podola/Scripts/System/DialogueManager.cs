@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
 {
     private DialogueRunner dialogueRunner;
 
-    // 스탠딩 이미지 슬롯들들
+    // 스탠딩 이미지 슬롯들
     public Image standingLeft;
     public Image standingRight;
     public Image standingCenter;

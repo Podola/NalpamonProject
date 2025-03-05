@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     private int currentStepIndex = -1;
 
     [Header("현재 게임 상태")]
-    public GameState currentState = GameState.Explore;
+    public GameState currentState = GameState.Timeline;
 
     [Header("대화창 컨티뉴 버튼")]
     public GameObject continueButton;
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [Header("Yarn 대화 러너")]
     private DialogueRunner dialogueRunner; 
     private DialogueManager dialogueManager;
+    private AudioManager audioManager;
     void Awake()
     {
         if (Instance == null)
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueManager = FindFirstObjectByType<DialogueManager>();
             dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+            audioManager = FindFirstObjectByType<AudioManager>();
         }
         else
         {
@@ -50,7 +52,16 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        // Standing 커맨드
         dialogueRunner.AddCommandHandler<string, string, string>("ShowStanding", YarnShowStanding);
+        dialogueRunner.AddCommandHandler<string>("HideStanding", YarnHideStanding);
+        
+        // Audio 커맨드
+        dialogueRunner.AddCommandHandler<string>("PlayBGM", YarnPlayBGM);
+        dialogueRunner.AddCommandHandler("StopBGM", YarnStopBGM); 
+        dialogueRunner.AddCommandHandler<string>("PlaySFX", YarnPlaySFX);
+
+        // ChapterManager.Instance.StartChapter(0);
     }
 
     public DialogueRunner GetDialogueRunner()
@@ -71,6 +82,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StartStorySequence()
     {
+        Debug.Log("[GameManager] 스토리 스퀀스를 '시작'합니다.");
+
         NextStep();
     }
 
@@ -79,7 +92,7 @@ public class GameManager : MonoBehaviour
         currentStepIndex++;
         if (currentSteps == null || currentStepIndex >= currentSteps.Count)
         {
-            Debug.Log("[GameManager] 모든 스텝을 완료했습니다.");
+            Debug.Log($"[GameManager] 모든 스텝을 완료했습니다. currentSteps: {currentSteps}, currentStepIndex: {currentStepIndex}");
             // 여기서 챕터 끝
             ChapterManager.Instance?.OnChapterEnd();
             return;
@@ -241,6 +254,21 @@ public class GameManager : MonoBehaviour
     public void YarnHideStanding(string position)
     {
         StartCoroutine(dialogueManager.HideStanding(position));
+    }
+
+        public void YarnPlayBGM(string bgmName)
+    {
+        audioManager.PlayBGM(bgmName);
+    }
+
+    public void YarnStopBGM()
+    {
+        audioManager.StopBGM();
+    }
+
+    public void YarnPlaySFX(string sfxName)
+    {
+        audioManager.PlaySFX(sfxName);
     }
     
 }

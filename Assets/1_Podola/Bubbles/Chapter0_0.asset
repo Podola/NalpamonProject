@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd836d2626f9e44985c94ab7223b6f7, type: 3}
+  m_Name: Chapter0_0
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: "\uD0D0\uC815"
+    text: "\uAC70\uC758 \uB2E4 \uC644\uC131\uC774\uAD70."
+    duration: 4
+  - speaker: "\uD0D0\uC815"
+    text: "\uC774\uC81C \uB9C8\uC9C0\uB9C9 \uC7AC\uB8CC\uB9CC \uC788\uC73C\uBA74..."
+    duration: 4
+  - speaker: "\uD0D0\uC815"
+    text: "\uC7AC\uB8CC\uB97C \uC5B4\uB514\uC11C \uAD6C\uD55C\uB2F4?"
+    duration: 3
+  - speaker: "\uD0D0\uC815"
+    text: "\uC774\uC2DC\uAC04\uC5D0 \uB204\uAD6C\uC9C0...?"
+    duration: 2.5
+  - speaker: "\uC8E0\uC288"
+    text: "\uBE4C\uC5B4\uBA39\uC744 \uC790\uC2DD!"
+    duration: 3
+  - speaker: "\uC8E0\uC288"
+    text: "\uAC81\uB3C4 \uC5C6\uC774 \uC798\uB3C4 \uC228\uC5B4\uC788\uC5C8\uAD70!"
+    duration: 3

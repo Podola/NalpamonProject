@@ -41,7 +41,7 @@ public class ChapterManager : MonoBehaviour
         currentChapterIndex = chapterIndex;
         ChapterSO data = chapters[chapterIndex];
 
-        Debug.Log($"[ChapterManager] 챕터 {chapterIndex+1} 시작: {data.chapterTitle}");
+        Debug.Log($"[ChapterManager] 챕터 {chapterIndex} 시작: {data.chapterTitle}");
 
         // GameManager에게 이 챕터의 스텝 목록을 넘겨주고 실행
         if (GameManager.Instance != null)
